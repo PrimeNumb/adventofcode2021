@@ -3,11 +3,13 @@ from typing import Optional
 
 from typing import List
 
-test_measurements = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
+test_measurements1 = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
+test_measurements2 = [607, 618, 618, 617, 647, 716, 769, 792]
 
 def main():
     values = parse_input()
-    print(nr_of_increases(values))
+    #print(sliding_increases(test_measurements2))
+    print(sliding_increases(values))
 
 def parse_input() -> List[int]:
     values = []
@@ -17,8 +19,24 @@ def parse_input() -> List[int]:
     for i in range(len(values)):
         values[i] = int(values[i].strip('\n'))
 
-    print(values)
     return values
+
+
+def sliding_increases(values: List[int]) -> int:
+    increases = 0
+
+    prev = None
+    sum = None
+    for i in range(len(values)-2):
+        sum = values[i] + values[i+1] + values[i+2]
+        if prev is not None and prev < sum:
+            increases += 1
+        
+        prev = sum
+            
+
+
+    return increases
 
 def nr_of_increases(values: List[int]) -> int:
     increases = 0
